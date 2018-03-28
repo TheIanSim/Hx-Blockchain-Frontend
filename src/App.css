@@ -1,0 +1,261 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body, .App {
+  font-family: 'Open Sans', sans-serif;
+  height: 100vh;
+}
+
+.Patient-grid {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+  background-color: whitesmoke;
+}
+
+
+/*Personal details ===========================================*/
+
+.PersonalDetails {
+  background-color: #063c53;
+  margin: 1.5rem;
+  display: inline-grid;
+  height: auto;
+  box-sizing: border-box;
+  box-shadow: 5px 5px grey;
+  color: whitesmoke;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.PersonalDetails h1 {
+  font-weight: 100;
+  text-transform: uppercase;
+  font-size: 2.5rem;
+  margin-top: 2rem;
+}
+
+.PersonalDetails ul {
+  list-style: none;
+  margin-top: 3rem;
+}
+
+.PersonalDetails li {
+  text-transform: capitalize;
+  text-align: left;
+  font-size: 1.5rem;
+  padding: 1rem;
+  font-weight: 100;
+  letter-spacing: 1px;
+}
+
+.avatar {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 100%;
+  margin-top: 4rem;
+}
+
+/*Navigation ===========================================*/
+
+.Navigation {
+  background-color: rgb(94, 20, 29);
+  margin: 1.5rem;
+  height: auto;
+  box-sizing: border-box;
+  box-shadow: 5px 5px grey;
+  color: whitesmoke;
+  padding: 1rem;
+  text-align: center;
+}
+
+.Navigation h1 {
+  margin-top: 2rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.Navigation ul {
+  margin-top: 2rem;
+  list-style: none;
+}
+
+.Navigation li {
+  text-transform: uppercase;
+  text-align: left;
+  font-size: 1.4rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  border: 1px solid whitesmoke;
+  letter-spacing: 1px;
+}
+
+.Navigation li:hover {
+  background-color: #00000080;
+}
+
+.active {
+  background-color: #00000080;
+}
+
+.nav-logo {
+  margin-top: 1rem;
+  width: 50%;
+  border-radius: 100%;
+}
+
+/*Dashboard ===========================================*/
+
+
+.Dashboard {
+  background-color:	#ad869d;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-sizing: border-box;
+  box-shadow: 5px 5px grey;
+  color: whitesmoke;
+  padding: 1rem;
+  text-align: center;
+  overflow-y: scroll;
+}
+
+.Dashboard h1 {
+  text-transform: uppercase;
+}
+
+/*Permissions ===========================================*/
+
+.Permissions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  box-sizing: border-box;
+}
+
+.Perm-grid-item {
+  border: 2px solid #581845;
+  background-color:  #0000002c;
+  margin: 1rem;
+  box-sizing: border-box;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.Perm-grid-item h1 {
+  font-weight: 400;
+  font-size: 1.6em;
+  text-transform: capitalize;
+  font-weight: 100;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+/*Name Card ===========================================*/
+
+.NameCard {
+  background-color: #581845;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 15px;
+  text-align: left;
+  display: inline-flex;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.NameCard h2 {
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.NameCard h3 {
+  text-transform: capitalize;
+}
+
+.NameCard-btn {
+  float: right;
+  border: none;
+  width: 100px;
+  font-family: inherit;
+  background: #3a102d;
+  color: whitesmoke;
+  border-radius: 3px;
+  font-size: 1rem;
+}
+
+.NameCard-btn:hover {
+  background: grey;
+}
+
+/*Prescription Card ===========================================*/
+
+.PrescriptionCard {
+  background-color: #0000002c;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 15px;
+  text-align: left;
+  text-transform: capitalize;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  display:flex;
+  justify-content: space-between;
+}
+
+.PrescriptionCard h2 {
+  font-weight: 300;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.fulfilled {
+  background-color: rgb(92, 0, 0);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+/*Login ===========================================*/
+
+.LoginContainer {
+  overflow: hidden;
+}
+
+.LoginBox {
+  margin: 100px auto;
+  width: 400px;
+  height: 500px;
+  background: #063c53;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 5px 5px grey;
+}
+
+.LoginBox h1 {
+  color: whitesmoke;
+  font-weight: 100;
+  text-transform: uppercase;
+}
+
+.LoginInput {
+  border: none;
+  width: 250px;
+  height: 40px;
+  margin-top: 1rem;
+  padding: 0.2rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-family: inherit;
+}
+
+.LoginBtn {
+  border: none;
+  width: 250px;
+  height: 40px;
+  margin-top: 1rem;
+  padding: 0.2rem;
+  font-size: 1.3rem;
+  font-weight: 400;
+  font-family: inherit;
+  text-transform: uppercase;
+}
