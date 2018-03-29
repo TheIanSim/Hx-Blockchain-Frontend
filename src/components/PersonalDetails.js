@@ -1,9 +1,10 @@
 import React from 'react';
+import avatar from '../images/img_avatar.png'
 
 const personalDetails = (props) => {
     return (
     <div>
-        <img src="https://www.w3schools.com/howto/img_avatar.png" className='avatar' />
+        <img src={avatar} alt="https://www.w3schools.com/howto/img_avatar.png" className='avatar' />
         <h1>{props.details.firstname} <b>{props.details.lastname}</b></h1>
         <ul>
             <li>age: <b>{props.details.age}</b></li>

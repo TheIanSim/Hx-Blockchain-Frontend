@@ -1,10 +1,11 @@
 import React from 'react';
+import logo from "../images/health.png";
 
 const navigation = (props) => {
 
     return (
     <div>
-        <img src="http://sweetclipart.com/multisite/sweetclipart/files/health_legal_caduceus_logo_lineart.png" className='nav-logo' />
+        <img src={logo} alt="http://sweetclipart.com/multisite/sweetclipart/files/health_legal_caduceus_logo_lineart.png" className='nav-logo' />
         <h1>Navigation</h1>
         <ul>
             <li onClick={() => props.click(props.routes.permissions, 'permissions')} className={props.cur === 'permissions'? 'active' : null}>Permissions</li>
