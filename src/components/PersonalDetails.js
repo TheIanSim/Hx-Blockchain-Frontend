@@ -2,16 +2,25 @@ import React from 'react';
 import avatar from '../images/img_avatar.png'
 
 const personalDetails = (props) => {
+
+    const pd = props.pd;
+
+    let info = [];
+    Object.keys(pd.info).forEach( (k) => {
+    info.push(<li>{k}: <b>{pd.info[k]}</b></li>);
+    })
+
     return (
     <div>
         <img src={avatar} alt="https://www.w3schools.com/howto/img_avatar.png" className='avatar' />
-        <h1>{props.details.firstname} <b>{props.details.lastname}</b></h1>
+        <h1>{pd.firstname} <b>{pd.lastname}</b></h1>
+        <h2>{pd.role}</h2>
         <ul>
-            <li>age: <b>{props.details.age}</b></li>
-            <li>gender: <b>{props.details.gender}</b></li>
-            <li>height: <b>{props.details.height}</b> cm</li>
-            <li>weight: <b>{props.details.weight}</b> kg</li>
+            {info}
         </ul>
+        <div className="PersonalDetails-btn" onClick={props.editInfo}>
+            <h2>EDIT INFO</h2>
+        </div>
     </div>
     );
 }

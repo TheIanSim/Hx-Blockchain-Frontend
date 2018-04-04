@@ -4,12 +4,24 @@ import Navigation from './Navigation';
 import Permissions from './Permissions';
 import Prescriptions from './Prescriptions';
 import MedicalCert from './MedicalCert';
+import MedicalRec from './MedicalRec'
+import EditInfo from './EditInfo';
+
 
 class Patient extends Component {
 
     state = {
         currentDash: <Permissions />,
-        currentName: 'permissions'
+        currentName: 'permissions',
+        pd : {
+            firstname: 'john',
+            lastname:'doe',
+            role: 'patient',
+            info: {age:24,
+                    gender:'male',
+                    height:170,
+                    weight:60}
+            }
     }
 
     changeDashHandler = (page,pageName) => {
@@ -19,22 +31,22 @@ class Patient extends Component {
         })
     }
 
-    routes = {
-        permissions: <Permissions />,
-        prescriptions: <Prescriptions />,
-        medicalcert: <MedicalCert />
+    changeInfoHandler = () => {
+        this.setState({
+            currentDash: <EditInfo pd={this.state.pd}/>,
+            currentName: 'edit info'
+        })
     }
+
+    routes = [
+            ['permissions', <Permissions />],
+            ['prescriptions', <Prescriptions />],
+            ['medical certificates', <MedicalCert />],
+            ['medical records', <MedicalRec />],
+            ]
+    
 
   render() {
-
-    const pd = {
-        firstname: 'john',
-        lastname:'doe',
-        age:24,
-        gender:'male',
-        height:170,
-        weight:60
-    }
 
     return (
         <div className='Patient-grid'>
@@ -48,8 +60,9 @@ class Patient extends Component {
             </div>
 
             <div className='PersonalDetails'>
-                <PersonalDetails details={pd} />
+                <PersonalDetails pd={this.state.pd} editInfo={this.changeInfoHandler}/>
             </div>
+
         </div>
     );
   }

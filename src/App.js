@@ -9,12 +9,38 @@ class App extends Component {
     auth: false
   }
 
-  loginHandler = () => {
-    this.setState({auth:true})
+  loginHandler = (cred) => {
+
+    const username = cred.username;
+    const password = cred.password;
+
+    fetch("http://localhost:9191/login?username=" + username + "&password=" + password + "&submit=Login", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include'}) 
+
+                .then((response) => {
+                    return response.json();
+                })
+                    .then((myJson) => {
+                        console.log(myJson)
+                        this.setState({auth:true});
+                    })
+                    .catch(() => {
+                        this.wrongCredHandler();
+                        console.log('err');
+                    });
   }
 
   logoutHandler = () => {
     this.setState({auth:false})
+  }
+
+  wrongCredHandler = () => {
+    window.alert("Invalid Username or Password")
   }
 
   render() {

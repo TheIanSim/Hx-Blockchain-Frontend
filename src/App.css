@@ -33,22 +33,39 @@ body, .App {
 .PersonalDetails h1 {
   font-weight: 100;
   text-transform: uppercase;
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-top: 2rem;
+}
+
+.PersonalDetails h2 {
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  text-transform: capitalize;
 }
 
 .PersonalDetails ul {
   list-style: none;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 .PersonalDetails li {
   text-transform: capitalize;
   text-align: left;
   font-size: 1.3rem;
-  padding: 1rem;
+  padding: 0.5rem;
   font-weight: 100;
   letter-spacing: 1px;
+}
+
+.PersonalDetails-btn {
+  border: 1px solid whitesmoke;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.PersonalDetails-btn:hover {
+  background-color: #00000080;
 }
 
 .avatar {
@@ -246,6 +263,7 @@ body, .App {
   font-size: 1.3rem;
   font-weight: 700;
   font-family: inherit;
+  box-sizing: border-box;
 }
 
 .LoginBtn {
@@ -258,4 +276,29 @@ body, .App {
   font-weight: 400;
   font-family: inherit;
   text-transform: uppercase;
+  box-sizing: border-box;
+}
+
+
+/*Edit Info ===========================================*/
+
+.EditInfo {
+  border: 2px solid whitesmoke;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.EditInfo ul {
+  list-style: none;
+}
+
+.EditInfo-btn {
+  border: 1px solid whitesmoke;
+  padding: 1rem;
+  margin: 1rem;
+  width: 10rem;
+}
+
+.EditInfo-btn:hover {
+  background-color: #00000080;
 }
