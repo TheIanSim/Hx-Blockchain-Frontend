@@ -11,7 +11,7 @@ const navigation = (props) => {
         <h1>Navigation</h1>
         <ul>
             {routes.map(i => {
-                return <li onClick={() => props.click(i[1], i[0])} className={props.cur === i[0] ? 'active' : null}>{i[0]}</li>
+                return <li key={i[0]} onClick={() => props.click(i[1], i[0])} className={props.cur === i[0] ? 'active' : null}>{i[0]}</li>
                 })}
             <li onClick={props.out}>Log-Out</li>
         </ul>

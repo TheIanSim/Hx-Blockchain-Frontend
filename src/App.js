@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import Patient from './components/Patient';
 import Login from './Login';
+import BackendURL from './BackendURL';
 
 class App extends Component {
 
   state = {
-    auth: false
+    auth: false,
+    userInfo: null
   }
 
   loginHandler = (cred) => {
@@ -14,7 +16,7 @@ class App extends Component {
     const username = cred.username;
     const password = cred.password;
 
-    fetch("http://localhost:9191/login?username=" + username + "&password=" + password + "&submit=Login", {
+    fetch(BackendURL + "/login?username=" + username + "&password=" + password + "&submit=Login", {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
@@ -26,12 +28,15 @@ class App extends Component {
                     return response.json();
                 })
                     .then((myJson) => {
-                        console.log(myJson)
-                        this.setState({auth:true});
+                        console.log(myJson);
+                        this.setState({
+                                      auth:true,
+                                      userInfo:myJson
+                                      });
                     })
-                    .catch(() => {
+                    .catch((e) => {
                         this.wrongCredHandler();
-                        console.log('err');
+                        console.log(e);
                     });
   }
 
@@ -46,7 +51,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.auth? <Patient out={this.logoutHandler}/> : <Login click={this.loginHandler}/>}
+        {this.state.auth? <Patient out={this.logoutHandler} data={this.state.userInfo}/> : <Login click={this.loginHandler}/>}
       </div>
     );
   }

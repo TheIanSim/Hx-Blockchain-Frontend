@@ -4,8 +4,8 @@ import NameCard from './NameCard';
 
 class Permissions extends Component {
     state = {
-        mc: [{name:'ben', role:'doctor',ID:'fsd3'},{name:'anne', role:'nurse',ID:'ses5'}],
-        pres: [{name:'anne', role:'nurse',ID:'ses5'},{name:'anne', role:'nurse',ID:'ses5'},{name:'anne', role:'nurse',ID:'ses5'},{name:'anne', role:'nurse',ID:'ses5'},{name:'anne', role:'nurse',ID:'ses5'},{name:'anne', role:'nurse',ID:'ses5'},{name:'anne', role:'nurse',ID:'ses5'},{name:'anne', role:'nurse',ID:'ses5'},{name:'anne', role:'nurse',ID:'ses5'}],
+        mc: [],
+        pres: [],
         info: []
     }
 

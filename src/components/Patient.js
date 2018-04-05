@@ -7,21 +7,24 @@ import MedicalCert from './MedicalCert';
 import MedicalRec from './MedicalRec'
 import EditInfo from './EditInfo';
 
-
 class Patient extends Component {
+
+    personalDet = JSON.parse(this.props.data['personalDetails'])[0];
+
 
     state = {
         currentDash: <Permissions />,
         currentName: 'permissions',
-        pd : {
-            firstname: 'john',
-            lastname:'doe',
-            role: 'patient',
-            info: {age:24,
-                    gender:'male',
-                    height:170,
-                    weight:60}
+        pd: {
+            firstname: this.personalDet.firstName,
+            lastname: this.personalDet.lastName,
+            role: this.props.data['role'],
+            info: {
+                dob: this.personalDet.dob,
+                email: this.personalDet.email,
+                contact: this.personalDet.contact
             }
+        }
     }
 
     changeDashHandler = (page,pageName) => {
