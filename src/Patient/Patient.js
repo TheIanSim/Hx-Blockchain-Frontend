@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PersonalDetails from './PersonalDetails';
-import Navigation from './Navigation';
+import PersonalDetails from '../Common/PersonalDetails';
+import Navigation from '../Common/Navigation';
 import Permissions from './Permissions';
 import Prescriptions from './Prescriptions';
 import MedicalCert from './MedicalCert';
@@ -10,21 +10,13 @@ import EditInfo from './EditInfo';
 class Patient extends Component {
 
     personalDet = JSON.parse(this.props.data['personalDetails'])[0];
-
+    medicalCerts = this.props.data['medicalCerts'];
+    medicalInfo = this.props.data['medicalInfo'];
 
     state = {
         currentDash: <Permissions />,
         currentName: 'permissions',
-        pd: {
-            firstname: this.personalDet.firstName,
-            lastname: this.personalDet.lastName,
-            role: this.props.data['role'],
-            info: {
-                dob: this.personalDet.dob,
-                email: this.personalDet.email,
-                contact: this.personalDet.contact
-            }
-        }
+        pd: this.personalDet
     }
 
     changeDashHandler = (page,pageName) => {
@@ -34,18 +26,20 @@ class Patient extends Component {
         })
     }
 
-    changeInfoHandler = () => {
+    toggleInfoHandler = () => {
         this.setState({
             currentDash: <EditInfo pd={this.state.pd}/>,
             currentName: 'edit info'
         })
     }
 
+
+
     routes = [
             ['permissions', <Permissions />],
             ['prescriptions', <Prescriptions />],
-            ['medical certificates', <MedicalCert />],
-            ['medical records', <MedicalRec />],
+            ['medical certificates', <MedicalCert certs={this.medicalCerts}/>],
+            ['medical records', <MedicalRec recs={this.medicalInfo}/>],
             ]
     
 
@@ -63,7 +57,7 @@ class Patient extends Component {
             </div>
 
             <div className='PersonalDetails'>
-                <PersonalDetails pd={this.state.pd} editInfo={this.changeInfoHandler}/>
+                <PersonalDetails pd={this.state.pd} editInfo={this.toggleInfoHandler}/>
             </div>
 
         </div>

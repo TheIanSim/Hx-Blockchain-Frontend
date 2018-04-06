@@ -286,11 +286,17 @@ body, .App {
   border: 2px solid whitesmoke;
   padding: 1rem;
   margin: 1rem;
+  display: block;
+  height: 60vh;
 }
 
-.EditInfo ul {
-  list-style: none;
+.EditInfo h3{
+  text-transform: uppercase;
+  float: left;
+  font-size: 1.4rem;
+  padding-top: 1.4rem;
 }
+
 
 .EditInfo-btn {
   border: 1px solid whitesmoke;
@@ -301,4 +307,22 @@ body, .App {
 
 .EditInfo-btn:hover {
   background-color: #00000080;
+}
+
+.EditInfo input {
+  border: none;
+  width: 250px;
+  height: 40px;
+  margin-top: 1rem;
+  padding: 0.2rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-family: inherit;
+  box-sizing: border-box; 
+  float: right;
+}
+
+.EditInfoItem {
+  width:400px;
+  clear: both;
 }

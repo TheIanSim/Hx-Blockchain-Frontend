@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
-import Patient from './components/Patient';
+import Patient from './Patient/Patient';
+import Doctor from './Doctor/Doctor';
 import Login from './Login';
 import BackendURL from './BackendURL';
 
 class App extends Component {
 
   state = {
-    auth: false,
-    userInfo: null
+    userInfo: null,
+    display: <Login click={this.loginHandler}/>
   }
 
   loginHandler = (cred) => {
@@ -25,14 +26,32 @@ class App extends Component {
                 credentials: 'include'}) 
 
                 .then((response) => {
+                    console.log(response);
                     return response.json();
                 })
                     .then((myJson) => {
-                        console.log(myJson);
-                        this.setState({
-                                      auth:true,
-                                      userInfo:myJson
-                                      });
+                      console.log(myJson);
+                      
+                      let role = myJson['role']; //get role
+                      
+                        if(role === 'Patient'){ 
+                          this.setState({
+                            ...this.state,
+                            display: <Patient out={this.logoutHandler} data={this.state.userInfo}/>
+                          })};
+
+                        if(role === 'Doctor'){ 
+                          this.setState({
+                            ...this.state,
+                            display: <Doctor out={this.logoutHandler} data={this.state.userInfo}/>
+                          })};
+
+                        if(role === 'Hospital'){ 
+                          this.setState({
+                            ...this.state,
+                            display: <Hospital out={this.logoutHandler} data={this.state.userInfo}/>
+                          })};
+                         
                     })
                     .catch((e) => {
                         this.wrongCredHandler();
@@ -51,7 +70,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.auth? <Patient out={this.logoutHandler} data={this.state.userInfo}/> : <Login click={this.loginHandler}/>}
+        {this.state.display}
       </div>
     );
   }
