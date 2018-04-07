@@ -1,16 +1,20 @@
 import React from 'react';
 
 const MCCard = (props) => {
-    const class_n = (props.data.fulfilled? <div className='fulfilled'><h1>FULFILLED</h1></div> : null)
+
+    const nameFormatter = (name) => {
+        return name.split("#")[1];
+    }
+
     return (
     <div className='PrescriptionCard'>
         <div>
-            <h2><b>Issuer:</b> {props.data.issuer_name} ({props.data.issuer_ID})</h2>
-            <p><b>Issued: </b> {props.data.issue_date}</p>
-            <p><b>Duration: </b>{props.data.duration}</p>
-            <p><b>Remarks: </b> {props.data.remarks}</p>
+            <h2><b>Issuer:  </b>{nameFormatter(props.data.issuer)}</h2>
+            <h2><b>Issuee:  </b>{nameFormatter(props.data.issuee)}</h2>
+            <p><b>Issued:  </b>{props.data.startDate}</p>
+            <p><b>Duration:  </b>{props.data.duration}</p>
+            <p><b>Remarks:  </b>{props.data.remark}</p>
         </div>
-        {class_n}
     </div>
     );
 }

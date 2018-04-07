@@ -4,28 +4,27 @@ import MCCard from './MCCard'
 
 class MedicalCerts extends Component {
 
-    rawCerts = this.props.certs;
-
     state = {
-        certs: [{ 
-            ID: 'sdfsd3',
-            issuer_ID: 'd3fas',
-            issuer_name: 'Dr. Wang',
-            issue_date: '2018-01-01',
-            duration: '1 days',
-            remarks: 'Attend C'
-            }]
+        rawCerts: this.props.certs
+    }
+
+    formatCerts = (cert) => {
+        let certData = {
+            ...cert
+        }
+        delete certData.$class;
+        return <MCCard data={certData} key={certData.mcId}/>
     }
 
     render() {
-      return (
-        <div>
-            <h1>Medical Certificates</h1>
-            <div className='Prescription-container'>
-                {this.state.certs.map(i => <MCCard data={i} key={i.ID}/>)}
+        return (
+            <div>
+                <h1>Medical Certificates</h1>
+                <div className='MedicalCerts-container'>
+                    {this.state.rawCerts.map(this.formatCerts)}
+                </div>
             </div>
-        </div>
-      );
+        );
     }
   }
 

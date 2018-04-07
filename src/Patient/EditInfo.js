@@ -7,17 +7,20 @@ class EditInfo extends Component {
         super(props);
         
         if(this.props.pd){
-            let initState = this.props.pd;
+            let initState = {...this.props.pd};
 
             delete initState.$class;
             delete initState.detailsId;
             delete initState.owner;
             delete initState.address;
 
-            this.state = {
-                initState,
-                ...this.props.pd.address
+            let NewState = {
+                ...initState,
+                ...props.pd.address
             };
+
+            delete NewState.$class;
+            this.state = NewState;
         }
         
     }
@@ -31,32 +34,45 @@ class EditInfo extends Component {
     }
 
     formatter = () => {
-        return {...this.props.pd,
-                ...this.state
-               }
+        let outState = {...this.props.pd,
+                        ...this.state};
+        
+        outState.address.country = this.state.country;
+        outState.address.postcode = this.state.postcode;
+        outState.address.street = this.state.street;
+
+        delete outState.country;
+        delete outState.postcode;
+        delete outState.street;
+
+        return outState
     }
 
-    confirmHandler = () => {
 
-        fetch(BackendURL + "/testPost", {
+    confirmHandler = () => {
+        let payload = this.formatter();
+        fetch(BackendURL + "/updatePersonalInfo2", {
                     method: "POST",
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(this.formatter()),
+                    },                    
+                    body: JSON.stringify(payload),
                     credentials: 'include'}) 
-    
-                    .then((response) => {
-                        
+                    .then((response) => {              
                         return response.json();
                     })
                         .then((myJson) => {
-                            console.log("success");
+                            this.props.confirm(payload);
+                            this.props.modal("Updated Info Successfully!")
+                            
+                            console.log("[Update Info] success");
                         })
                         .catch((e) => {
-                            this.wrongCredHandler();
-                            console.log("failure");
+                            this.props.modal("Update Info Failed!")
+                            //this.wrongCredHandler();
+                            console.log(e)
+                            console.log("[Update Info] failure" , e);
                         });
       }
 
@@ -64,6 +80,7 @@ class EditInfo extends Component {
 
         let fields = [];
         Object.keys(this.state).forEach( (k) => {
+            
             fields.push(
                     <div className='EditInfoItem' key={k}>
                         <h3>{k}</h3>

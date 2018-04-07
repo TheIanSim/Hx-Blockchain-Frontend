@@ -6,8 +6,10 @@ const personalDetails = (props) => {
     const pd = props.pd;
 
     let info = [];
-    Object.keys(pd.info).forEach( (k) => {
-    info.push(<li key={k}>{k}: <b>{pd.info[k]}</b></li>);
+    Object.keys(pd).forEach( (k) => {
+        if(k !== 'address' && k !== '$class' && k !== 'detailsId' && k !== 'owner'){
+            info.push(<li key={k}>{k}: <b>{pd[k]}</b></li>);
+        }
     })
 
     return (
