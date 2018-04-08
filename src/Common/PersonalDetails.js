@@ -4,10 +4,10 @@ import avatar from '../images/img_avatar.png'
 const personalDetails = (props) => {
 
     const pd = props.pd;
-
     let info = [];
     Object.keys(pd).forEach( (k) => {
         if(k !== 'address' && k !== '$class' && k !== 'detailsId' && k !== 'owner'){
+            console.log(k === 'address')
             info.push(<li key={k}>{k}: <b>{pd[k]}</b></li>);
         }
     })

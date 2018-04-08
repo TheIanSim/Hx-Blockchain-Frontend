@@ -31,24 +31,29 @@ class App extends Component {
                 credentials: 'include'}) 
 
                 .then((response) => {
-                    //console.log(response);
                     return response.json();
                 })
-                    .then((myJson) => {
-                                  
+                    .then((myJson) => {                    
                       let role = myJson['role']; //get role
+                      //console.log(myJson)
                       
-                        if(role === 'ADMIN'){ 
+                        if(role === 'PATIENT'){ 
                           this.setState({
                             ...this.state,
                             display: <Patient out={this.logoutHandler} data={myJson} modal={this.showModal}/>
                           })};
 
-                        if(role === 'Doctor'){ 
+                        if(role === 'DOCTOR'){ 
                           this.setState({
                             ...this.state,
-                            display: <Doctor out={this.logoutHandler} data={this.state.userInfo}/>
+                            display: <Doctor out={this.logoutHandler} data={myJson} modal={this.showModal}/>
                           })};
+
+                        // if(role === 'DOCTOR'){ 
+                        //   this.setState({
+                        //     ...this.state,
+                        //     display: <Doctor out={this.logoutHandler} data={this.state.userInfo}/>
+                        //   })};
 
                     })
                     .catch((e) => {

@@ -9,12 +9,12 @@ import EditInfo from './EditInfo';
 
 class Patient extends Component {
 
-    personalDet = JSON.parse(this.props.data['personalDetails'])[0];
-    medicalCerts = JSON.parse(this.props.data['medicalCerts']);
-    medicalInfo = JSON.parse(this.props.data['medicalInfo']);
+    personalDet = this.props.data['personalDetails'][0];
+    medicalCerts = this.props.data['medicalCerts'];
+    medicalInfo = this.props.data['medicalInfo'];
 
     state = {
-        currentDash: null,
+        currentDash: <div><h1>Welcome to HX Patient</h1><h1>Select an option to begin</h1></div>,
         currentName: null,
         pd: this.personalDet
     }
@@ -49,7 +49,6 @@ class Patient extends Component {
         ]
     
   render() {
-
     return (
         <div className='Patient-grid'>
 
