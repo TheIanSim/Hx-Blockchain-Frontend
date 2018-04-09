@@ -9,9 +9,10 @@ import EditInfo from './EditInfo';
 
 class Patient extends Component {
 
-    personalDet = this.props.data['personalDetails'][0];
-    medicalCerts = this.props.data['medicalCerts'];
-    medicalInfo = this.props.data['medicalInfo'];
+    personalDet = JSON.parse(this.props.data['personalDetails'])[0];
+    medicalCerts = JSON.parse(this.props.data['medicalCerts']);
+    medicalInfo = JSON.parse(this.props.data['medicalInfo']);
+    prescriptions = JSON.parse(this.props.data['prescriptions']);
 
     state = {
         currentDash: <div><h1>Welcome to HX Patient</h1><h1>Select an option to begin</h1></div>,
@@ -35,15 +36,15 @@ class Patient extends Component {
 
     toggleInfoHandler = () => {
         this.setState({
-            currentDash: <EditInfo pd={this.state.pd} confirm={this.updateInfoHandler} modal={this.props.modal}/>,
+            currentDash: <EditInfo pd={this.state.pd} confirm={this.updateInfoHandler} modal={this.props.modal} spinner={this.props.spinner}/>,
             currentName: 'edit info'
         })
     }
 
     
     routes = [
-        ['permissions', <Permissions pd={this.state.pd} modal={this.props.modal}/>],
-        ['prescriptions', <Prescriptions />],
+        ['permissions', <Permissions pd={this.state.pd} modal={this.props.modal} spinner={this.props.spinner}/>],
+        ['prescriptions', <Prescriptions prescriptions={this.prescriptions}/>],
         ['medical certificates', <MedicalCert certs={this.medicalCerts}/>],
         ['medical records', <MedicalRec recs={this.medicalInfo}/>],
         ]
@@ -61,7 +62,7 @@ class Patient extends Component {
             </div>
 
             <div className='PersonalDetails'>
-                <PersonalDetails pd={this.state.pd} editInfo={this.toggleInfoHandler}/>
+                <PersonalDetails pd={this.state.pd} editInfo={this.toggleInfoHandler} role={this.props.data.role}/>
             </div>
 
         </div>

@@ -4,19 +4,19 @@ import Navigation from '../Common/Navigation';
 import Permissions from './Permissions';
 import Prescriptions from './Prescriptions';
 import MedicalCert from './MedicalCert';
-import MedicalRec from './MedicalRec'
-import EditInfo from './EditInfo';
+import MedicalRec from './MedicalRec';
+import EditInfo from '../Patient/EditInfo';
 
 class Doctor extends Component {
-
-    personalDet = this.props.data['personalDetails'][0];
-    medicalCerts = this.props.data['medicalCerts'];
-    medicalInfo = this.props.data['medicalInfo'];
 
     state = {
         currentDash: <div><h1>Welcome to HX Practitioner</h1><h1>Select an option to begin</h1></div>,
         currentName: null,
-        pd: this.personalDet
+        pd: JSON.parse(this.props.data['personalDetails'])[0],
+        medicalInfo: JSON.parse(this.props.data['medicalInfo']),
+        prescriptions: JSON.parse(this.props.data['prescriptions']),
+       // medicalCerts: JSON.parse(this.props.data['medicalCerts']),
+
     }
 
     changeDashHandler = (page,pageName) => {
@@ -35,7 +35,7 @@ class Doctor extends Component {
 
     toggleInfoHandler = () => {
         this.setState({
-            currentDash: <EditInfo pd={this.state.pd} confirm={this.updateInfoHandler} modal={this.props.modal}/>,
+            currentDash: <EditInfo spinner={this.props.spinner} pd={this.state.pd} confirm={this.updateInfoHandler} modal={this.props.modal}/>,
             currentName: 'edit info'
         })
     }
@@ -43,12 +43,13 @@ class Doctor extends Component {
     
     routes = [
         ['permissions', <Permissions pd={this.state.pd} modal={this.props.modal}/>],
-        ['prescriptions', <Prescriptions />],
-        ['medical certificates', <MedicalCert certs={this.medicalCerts} pd={this.state.pd} modal={this.props.modal}/>],
-        ['medical records', <MedicalRec recs={this.medicalInfo} pd={this.state.pd} modal={this.props.modal}/>],
+        ['prescriptions', <Prescriptions pd={this.state.pd} prescriptions={this.state.prescriptions} modal={this.props.modal} spinner={this.props.spinner}/>],
+        ['medical records', <MedicalRec recs={this.state.medicalInfo} pd={this.state.pd} modal={this.props.modal} spinner={this.props.spinner}/>],
+        ['medical certificates', <MedicalCert pd={this.state.pd} certs={this.medicalCerts} modal={this.props.modal} spinner={this.props.spinner}/>],
         ]
     
   render() {
+    console.log(this.state.prescriptions)
     return (
         <div className='Patient-grid'>
 
@@ -61,7 +62,7 @@ class Doctor extends Component {
             </div>
 
             <div className='PersonalDetails'>
-                <PersonalDetails pd={this.state.pd} editInfo={this.toggleInfoHandler}/>
+                <PersonalDetails pd={this.state.pd} editInfo={this.toggleInfoHandler} role={this.props.data.role}/>
             </div>
 
         </div>

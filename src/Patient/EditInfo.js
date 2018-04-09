@@ -5,7 +5,6 @@ class EditInfo extends Component {
 
     constructor(props) {
         super(props);
-        
         if(this.props.pd){
             let initState = {...this.props.pd};
 
@@ -51,6 +50,7 @@ class EditInfo extends Component {
 
     confirmHandler = () => {
         let payload = this.formatter();
+        this.props.spinner(true);
         fetch(BackendURL + "/updatePersonalInfo2", {
                     method: "POST",
                     headers: {
@@ -59,17 +59,23 @@ class EditInfo extends Component {
                     },                    
                     body: JSON.stringify(payload),
                     credentials: 'include'}) 
-                    .then((response) => {              
-                        return response.json();
+                    .then((response) => {  
+                        this.props.spinner(false);            
+                        return response;
                     })
-                        .then((myJson) => {
-                            this.props.confirm(payload);
-                            this.props.modal("Updated Info Successfully!")
-                            
-                            console.log("[Update Info] success");
+                        .then((resp) => {
+                            if (resp.status === 200){
+                                this.props.confirm(payload);
+                                this.props.modal("Info Updated Successfully!")
+                                console.log("[Update Info] success");
+                            }else{
+                                this.props.modal("Info Update Failed!")
+                                console.log("[Update Info] failure");
+                            }           
                         })
                         .catch((e) => {
-                            this.props.modal("Update Info Failed!")
+                            this.props.spinner(false);  
+                            this.props.modal("Network Error")
                             //this.wrongCredHandler();
                             console.log(e)
                             console.log("[Update Info] failure" , e);

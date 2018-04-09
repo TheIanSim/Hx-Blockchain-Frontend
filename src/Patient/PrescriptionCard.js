@@ -5,10 +5,15 @@ const prescriptionCard = (props) => {
     return (
     <div className='PrescriptionCard'>
         <div>
-            <h2><b>Issuer:</b> {props.data.issuer_name} ({props.data.issuer_ID})</h2>
-            <p><b>Issued: </b> {props.data.issue_date}</p>
-            <p><b>Drug: </b>{props.data.drug_name} ({props.data.quantity})</p>
-            <p><b>Remarks: </b> {props.data.remarks}</p>
+            <h2><b>Prescription ID:</b> {props.data.preId}</h2>
+            <p><b>Issuer:</b> {props.data.issuer}</p>
+            <p><b>Issued to:</b> {props.data.issuee}</p>
+            <p><b>Issue date: </b> {props.data.date}</p>
+            {props.data.drugs.map(
+                (i) => {
+                    return <p key={i.drugName+i.drugQty}>{i.drugName} ({i.drugQty})</p>
+                }
+            )}
         </div>
         {class_n}
     </div>

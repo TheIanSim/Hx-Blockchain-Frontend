@@ -6,8 +6,8 @@ import NewRecord from './NewRecord';
 class MedicalRec extends Component {
 
     state = {
-        rawCerts: this.props.certs,
-        issuer: this.getID(this.props.pd)
+        rawCerts: this.props.recs,
+        issuer: this.props.pd.owner
     }
 
     formatRec = (rec) => {
@@ -18,15 +18,12 @@ class MedicalRec extends Component {
         return <RecordCard data={recData} key={recData.recId}/>
     }
 
-    getID = (pd) => {
-        return //TODO
-    }
-
     render() {
+        console.log(this.props.certs)
         return (
             <div>
                 <h1>Medical Records</h1>
-                <NewRecord issuer={this.state.issuer} modal={this.props.modal}/>
+                <NewRecord issuer={this.state.issuer} modal={this.props.modal} spinner={this.props.spinner}/>
                 <div className='MedicalCerts-container'>
                     {this.state.rawCerts.map(this.formatRec)}
                 </div>

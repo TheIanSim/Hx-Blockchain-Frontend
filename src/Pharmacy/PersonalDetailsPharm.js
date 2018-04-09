@@ -2,11 +2,10 @@ import React from 'react';
 import avatar from '../images/img_avatar.png'
 
 const personalDetails = (props) => {
-
     const pd = props.pd;
     let info = [];
     Object.keys(pd).forEach( (k) => {
-        if(k !== 'address' && k !== '$class' && k !== 'detailsId' && k !== 'owner'){
+        if(k !== 'prePermissions' && k !== '$class' && k !== 'detailsId' && k !== 'owner'){
             info.push(<li key={k}>{k}: <b>{pd[k]}</b></li>);
         }
     })
@@ -18,9 +17,6 @@ const personalDetails = (props) => {
         <ul>
             {info}
         </ul>
-        <div className="PersonalDetails-btn" onClick={props.editInfo}>
-            <h2>EDIT INFO</h2>
-        </div>
     </div>
     );
 }

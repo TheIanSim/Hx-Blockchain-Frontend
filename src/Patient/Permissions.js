@@ -25,20 +25,20 @@ class Permissions extends Component {
         <h1>Permissions</h1>
         <div className='Permissions-grid'>
             <div className='Perm-grid-item'>
-                <h1 style={{marginBottom:0}}>Medical Certificates</h1>
-                <InputComponent update={this.authNew} url={"/mcAccess"} pd={this.props.pd} modal={this.props.modal}/>
+                <h1 style={{marginBottom:0, fontWeight:400 , textTransform:'uppercase'}}>Medical Certificates</h1>
+                <InputComponent update={this.authNew} url={"/mcAccess"} pd={this.props.pd} modal={this.props.modal} spinner={this.props.spinner}/>
                 {this.state.mc.map(i => <NameCard name={i.name} role={i.role} key={i.ID}/>)}
             </div>
 
             <div className='Perm-grid-item'>
-                <h1 style={{marginBottom:0}}>Prescriptions</h1>
-                <InputComponent update={this.authNew} url={"/presAccess"} pd={this.props.pd} modal={this.props.modal}/>
+                <h1 style={{marginBottom:0, fontWeight:400 , textTransform:'uppercase'}}>Prescriptions</h1>
+                <InputComponent update={this.authNew} url={"/preAccess"} pd={this.props.pd} modal={this.props.modal} spinner={this.props.spinner}/>
                 {this.state.pres.map(i => <NameCard name={i.name} role={i.role} key={i.ID}/>)}
             </div>
 
             <div className='Perm-grid-item'>
-                <h1 style={{marginBottom:0}}>Medical Information</h1>
-                <InputComponent update={this.authNew} url={"/infoAccess"} pd={this.props.pd} modal={this.props.modal}/>
+                <h1 style={{marginBottom:0, fontWeight:400 , textTransform:'uppercase'}}>Medical Information</h1>
+                <InputComponent update={this.authNew} url={"/infoAccess"} pd={this.props.pd} modal={this.props.modal} spinner={this.props.spinner}/>
                 {this.state.info.map(i => <NameCard name={i.name} role={i.role} key={i.ID}/>)}
             </div>
 

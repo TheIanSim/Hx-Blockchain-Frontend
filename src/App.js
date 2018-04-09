@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import './App.css';
 import Patient from './Patient/Patient';
 import Doctor from './Doctor/Doctor';
+import Pharmacy from './Pharmacy/Pharmacy';
+import Employer from './Employer/Employer';
 import Login from './Login';
 import BackendURL from './BackendURL';
 import Modal from './Common/Modal';
+import Spinner from './Common/Spinner';
 
 class App extends Component {
 
@@ -13,7 +16,8 @@ class App extends Component {
     this.state = {
       userInfo: null,
       display: <Login click={this.loginHandler}/>,
-      modal: null
+      modal: null,
+      spinner: null
     }
   }
 
@@ -21,7 +25,7 @@ class App extends Component {
 
     const username = cred.username;
     const password = cred.password;
-
+    this.showSpinner(true);
     fetch(BackendURL + "/login?username=" + username + "&password=" + password + "&submit=Login", {
                 method: "POST",
                 headers: {
@@ -31,33 +35,42 @@ class App extends Component {
                 credentials: 'include'}) 
 
                 .then((response) => {
+                    if(response.status === 500){
+                      this.wrongCredHandler();
+                    }
                     return response.json();
                 })
-                    .then((myJson) => {                    
+                    .then((myJson) => {     
+                      this.showSpinner(false);               
                       let role = myJson['role']; //get role
-                      //console.log(myJson)
-                      
                         if(role === 'PATIENT'){ 
                           this.setState({
                             ...this.state,
-                            display: <Patient out={this.logoutHandler} data={myJson} modal={this.showModal}/>
+                            display: <Patient spinner={this.showSpinner} out={this.logoutHandler} data={myJson} modal={this.showModal}/>
                           })};
 
                         if(role === 'DOCTOR'){ 
                           this.setState({
                             ...this.state,
-                            display: <Doctor out={this.logoutHandler} data={myJson} modal={this.showModal}/>
+                            display: <Doctor spinner={this.showSpinner} out={this.logoutHandler} data={myJson} modal={this.showModal}/>
                           })};
 
-                        // if(role === 'DOCTOR'){ 
-                        //   this.setState({
-                        //     ...this.state,
-                        //     display: <Doctor out={this.logoutHandler} data={this.state.userInfo}/>
-                        //   })};
+                        if(role === 'PHARMACY'){ 
+                          this.setState({
+                            ...this.state,
+                            display: <Pharmacy spinner={this.showSpinner} out={this.logoutHandler} data={myJson} modal={this.showModal}/>
+                          })};
+
+                        if(role === 'EMPLOYER'){ 
+                          this.setState({
+                            ...this.state,
+                            display: <Employer spinner={this.showSpinner} out={this.logoutHandler} data={this.state.userInfo}/>
+                          })};
 
                     })
                     .catch((e) => {
-                        this.wrongCredHandler();
+                        this.showSpinner(false); 
+                        this.showModal('Network Error');
                         console.log(e);
                     });
   }
@@ -80,6 +93,20 @@ class App extends Component {
     })
   }
 
+  showSpinner = (show) => {
+    if (show){
+      this.setState({
+        ...this.state,
+        spinner: <Spinner />
+      })
+    }else{
+      this.setState({
+        ...this.state,
+        spinner: null
+      }) 
+    }
+  }
+
   closeModal = () => {
     this.setState({
       ...this.state,
@@ -91,6 +118,7 @@ class App extends Component {
     return (
       <div className="App">
         {this.state.modal}
+        {this.state.spinner}
         {this.state.display}
       </div>
     );

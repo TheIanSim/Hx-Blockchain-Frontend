@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import BackendURL from '../BackendURL';
 
 class NewMC extends Component {
 
@@ -7,6 +8,7 @@ class NewMC extends Component {
         super(props);
         this.state = {
             mc: {
+                mcId: '',
                 issuer: props.issuer,
                 issuee: '',
                 startDate: '',
@@ -21,16 +23,16 @@ class NewMC extends Component {
         let val = event.target.value;
         let nam = event.target.name;
         newMC[nam] = val;
-        this.setState(newMC);   
+        this.setState({mc: newMC});   
     }
 
     confirmHandler = () => {
         let payload = this.state.mc;
-
-        if (payload.issue === '' || payload.startDate === ''){
-            this.props.modal("Issuer and start date cannot be empty!")
+        if (!payload.issuee || !payload.startDate ){
+            this.props.modal("Patient ID and start date cannot be empty!")
         }else{
-            fetch(BackendURL + '/newMC', {
+            this.props.spinner(true);
+            fetch(BackendURL + '/createMC', {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
@@ -38,20 +40,25 @@ class NewMC extends Component {
                 },                    
                 body: JSON.stringify(payload),
                 credentials: 'include'}) 
-                .then((response) => {              
-                    return response.json();
+                .then((response) => {    
+                    this.props.spinner(false);      
+                    return response;
                 })
-                    .then((myJson) => {
-                        this.props.confirm(payload);
-                        this.props.modal("MC Submitted Successfully!")
+                    .then((resp) => {
+                        if (resp.status === 200){
+                            this.props.modal("MC Submitted Successfully!")
+                            console.log("[MC Submitted] success");
+                        }else{
+                            this.props.modal("MC Submission Failed!")
+                            console.log("[MC Submission] Failed");
+                        }
                         
-                        console.log("[MC Submitted] success");
                     })
                     .catch((e) => {
-                        this.props.modal("MC Submitted Failed!")
-                        //this.wrongCredHandler();
+                        this.props.modal("Network error! " + e)
+                        this.props.spinner(false);    
                         console.log(e)
-                        console.log("[MC Submitted] failure" , e);
+                        console.log("[MC Submission] failure" , e);
                     });
         }
     }
@@ -59,15 +66,24 @@ class NewMC extends Component {
 
     render() {
         return (
-            <div>
-                <div className='EditInfo'>
-                    <input placeholder={'PatientID'} onChange={(e) => this.changeHandler(e)} name={'issuer'}/>
+            <div className='InputContainer'>   
+                <h1>Create MC:</h1>
+                <div className='InputItem'>    
+                    <input placeholder={'Patient ID'} onChange={(e) => this.changeHandler(e)} name={'issuee'}/>
+                </div>    
+                <div className='InputItem'>    
                     <input placeholder={'Start Date'} onChange={(e) => this.changeHandler(e)} name={'startDate'}/>
+                </div>    
+                <div className='InputItem'>    
                     <input placeholder={'Duration'} onChange={(e) => this.changeHandler(e)} name={'duration'}/>
+                </div>    
+                <div className='InputItem'>    
                     <input placeholder={'Remark'} onChange={(e) => this.changeHandler(e)} name={'remark'}/>
                 </div>
-                <div className='EditInfo-btn' onClick={this.confirmHandler} >CONFIRM</div>
+                <div className='EditInfo-btn' onClick={this.confirmHandler} >SUBMIT</div>
             </div>
         );
     }
 }
+
+export default NewMC;

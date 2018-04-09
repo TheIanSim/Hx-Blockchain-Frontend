@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import BackendURL from '../BackendURL';
 
-class NewMC extends Component {
+class NewRecord extends Component {
 
     constructor(props) {
 
@@ -19,23 +20,25 @@ class NewMC extends Component {
     }
 
     changeHandler = (event) => {
-        let newRec = {...this.state.rec} 
         let val = event.target.value;
         let nam = event.target.name;
+        let newRec = {...this.state.rec} 
         newRec[nam] = val;
-        this.setState(newRec);   
+        this.setState({
+            rec: newRec
+        });   
     }
 
     confirmHandler = () => {
         let payload = {...this.state.rec};
-        payload[testImages] = this.toList(this.state.rec.testImages);
-        payload[labReports] = this.toList(this.state.rec.labReports);
-        payload[drugAllergies] = this.toList(this.state.rec.drugAllergies);
-
-        if (payload.issue === '' || payload.date === ''){
-            this.props.modal("Issuer and date cannot be empty!")
+        payload.testImages = this.toList(this.state.rec.testImages);
+        payload.labReports = this.toList(this.state.rec.labReports);
+        payload.drugAllergies = this.toList(this.state.rec.drugAllergies);
+        if (!payload.issuee || !payload.date ){
+            this.props.modal("Patient ID and date cannot be empty!")
         }else{
-            fetch(BackendURL + '/newRec', {
+            this.props.spinner(true);
+            fetch(BackendURL + '/createMedInfo', {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
@@ -43,20 +46,25 @@ class NewMC extends Component {
                 },                    
                 body: JSON.stringify(payload),
                 credentials: 'include'}) 
-                .then((response) => {              
-                    return response.json();
+                .then((response) => {    
+                    this.props.spinner(false);      
+                    return response;
                 })
-                    .then((myJson) => {
-                        this.props.confirm(payload);
-                        this.props.modal("Record Submitted Successfully!")
+                    .then((resp) => {
+                        if (resp.status === 200){
+                            this.props.modal("Record Submitted Successfully!")
+                            console.log("[Record Submitted] success");
+                        }else{
+                            this.props.modal("Record Submission Failed!")
+                            console.log("[Record Submission] Failed");
+                        }
                         
-                        console.log("[Record Submitted] success");
                     })
                     .catch((e) => {
-                        this.props.modal("Record Submitted Failed!")
-                        //this.wrongCredHandler();
+                        this.props.modal("Network error!")
+                        this.props.spinner(false);    
                         console.log(e)
-                        console.log("[Record Submitted] failure" , e);
+                        console.log("[Record Submission] failure" , e);
                     });
         }
     }
@@ -64,7 +72,7 @@ class NewMC extends Component {
     toList = (str) => {
         try {
             return str.split(',');
-        }catch {
+        }catch(e) {
             return [str];
         }
 
@@ -74,18 +82,38 @@ class NewMC extends Component {
     render() {
         return (
             <div>
-                <div className='EditInfo'>
-                    <input placeholder={'PatientID'} onChange={(e) => this.changeHandler(e)} name={'issuer'}/>
-                    <input placeholder={'Date'} onChange={(e) => this.changeHandler(e)} name={'date'}/>
-                    <input placeholder={'Diagnosis'} onChange={(e) => this.changeHandler(e)} name={'diagnosis'}/>
-            
-                    <input placeholder={'Test Images (seperate values by comma)'} onChange={(e) => this.changeHandler(e)} name={'testImages'}/>
-                    <input placeholder={'Lab Reports (seperate values by comma)'} onChange={(e) => this.changeHandler(e)} name={'labReports'}/>
-                    <input placeholder={'Drug Allergies (seperate values by comma)'} onChange={(e) => this.changeHandler(e)} name={'drugAllergies'}/>
+                <div className='InputContainer'>
+                    <h1>Create record:</h1>
+                    <div className='InputItem'>
+                        <input placeholder={'Patient ID'} onChange={(e) => this.changeHandler(e)} name={'issuee'}/>
+                    </div>
                     
+            
+                    <div className='InputItem'>
+                        <input placeholder={'Date'} onChange={(e) => this.changeHandler(e)} name={'date'}/>
+                    </div>
+
+                    <div className='InputItem'>
+                        <input placeholder={'Diagnosis'} onChange={(e) => this.changeHandler(e)} name={'diagnosis'}/>
+                    </div>
+
+                    <div className='InputItem'>
+                        <input placeholder={'Test Images (seperate values by comma)'} onChange={(e) => this.changeHandler(e)} name={'testImages'}/>
+                    </div>
+
+                    <div className='InputItem'>
+                        <input placeholder={'Lab Reports (seperate values by comma)'} onChange={(e) => this.changeHandler(e)} name={'labReports'}/>
+                    </div>
+
+                    <div className='InputItem'>
+                        <input placeholder={'Drug Allergies (seperate values by comma)'} onChange={(e) => this.changeHandler(e)} name={'drugAllergies'}/>
+                    </div>
+                    <div className='EditInfo-btn' onClick={this.confirmHandler} >SUBMIT</div>
                 </div>
-                <div className='EditInfo-btn' onClick={this.confirmHandler} >CONFIRM</div>
+                <br/>
             </div>
         );
     }
 }
+
+export default NewRecord;

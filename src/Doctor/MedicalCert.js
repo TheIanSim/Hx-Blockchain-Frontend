@@ -7,7 +7,7 @@ class MedicalCerts extends Component {
 
     state = {
         rawCerts: this.props.certs,
-        issuer: this.getID(this.props.pd)
+        issuer: this.props.pd.owner
     }
 
     formatCerts = (cert) => {
@@ -18,17 +18,12 @@ class MedicalCerts extends Component {
         return <MCCard data={certData} key={certData.mcId}/>
     }
 
-    getID = (pd) => {
-        return //TODO
-    }
-
     render() {
         return (
             <div>
                 <h1>Medical Certificates</h1>
-                <NewMC issuer={this.state.issuer} modal={this.props.modal}/>
                 <div className='MedicalCerts-container'>
-                    {this.state.rawCerts.map(this.formatCerts)}
+                    <NewMC issuer={this.state.issuer} modal={this.props.modal} spinner={this.props.spinner}/>
                 </div>
             </div>
         );

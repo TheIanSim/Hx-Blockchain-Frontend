@@ -19,7 +19,7 @@ body, .App {
 /*Personal details ===========================================*/
 
 .PersonalDetails {
-  background-color: #063c53;
+  background-color: #0B3C5D;
   margin: 1.5rem;
   display: inline-grid;
   height: auto;
@@ -127,12 +127,12 @@ body, .App {
 
 
 .Dashboard {
-  background-color:	#ad869d;
+  background-color:	lightgray;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
   box-sizing: border-box;
   box-shadow: 5px 5px grey;
-  color: whitesmoke;
+  color: rgb(58, 58, 58);
   padding: 1rem;
   text-align: center;
   overflow-y: scroll;
@@ -151,8 +151,8 @@ body, .App {
 }
 
 .Perm-grid-item {
-  border: 2px solid #581845;
-  background-color:  #0000002c;
+  border: 2px solid rgb(58, 58, 58);
+  background-color:  whitesmoke;
   margin: 1rem;
   box-sizing: border-box;
   border-radius: 15px;
@@ -208,7 +208,7 @@ body, .App {
 /*Prescription Card ===========================================*/
 
 .PrescriptionCard {
-  background-color: #0000002c;
+  background-color: #ffffffa4;
   margin: 1rem;
   padding: 1rem;
   border-radius: 15px;
@@ -227,7 +227,7 @@ body, .App {
 }
 
 .fulfilled {
-  background-color: rgb(92, 0, 0);
+  background-color: rgba(134, 42, 42, 0.507);
   border-radius: 10px;
   padding: 1rem;
 }
@@ -279,11 +279,17 @@ body, .App {
   box-sizing: border-box;
 }
 
+.LoginBtn:hover {
+  background-color: #00000080;
+  color: whitesmoke;
+}
+
 
 /*Edit Info ===========================================*/
 
 .EditInfo {
-  border: 2px solid whitesmoke;
+  border: 2px solid rgb(58, 58, 58);
+  border-radius: 10px;
   padding: 1rem;
   margin: 1rem;
   display: block;
@@ -299,10 +305,13 @@ body, .App {
 
 
 .EditInfo-btn {
-  border: 1px solid whitesmoke;
+  border: 2px solid rgb(58, 58, 58);
+  border-radius: 10px;
   padding: 1rem;
   margin: 1rem;
   width: 10rem;
+  color: rgb(58, 58, 58);
+  font-weight: 700;
 }
 
 .EditInfo-btn:hover {
@@ -341,11 +350,16 @@ body, .App {
  /* Input Component ==================*/
 
  .inputComponent {
-    padding: 1rem;
+    margin: 1rem;
+    border: 2px solid black;
+    border-radius: 10px;
  }
 
+
+
  .inputComponent input {
-  border: none;
+  border: 2px solid black;
+  margin: 2px;
   width: 80%;
   height: 30px;
   font-size: 1rem;
@@ -400,4 +414,155 @@ body, .App {
 
 .modal button:hover {
   background-color: #00000080;
+}
+
+.inputComponentSelected {
+  color: red;
+}
+
+.InputContainer {
+  border: 2px solid rgb(58, 58, 58);
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem;
+  display: block;
+  height: auto;
+}
+
+.InputContainer input {
+  border: none;
+  width: 100%;
+  height: 40px;
+  margin-top: 1rem;
+  padding: 0.2rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-family: inherit;
+  box-sizing: border-box; 
+  height: 60px;
+}
+.drugInput-container {
+  text-align: left;
+}
+
+.drugInput-container h3 {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 100;
+}
+
+.drugInput-container input{
+  width: 60%;
+}
+
+.Drug {
+  background: white;
+  margin-top: 1rem;
+  min-height: 50px;
+}
+
+.Drug ul {
+  list-style: none;
+}
+.Drug li {
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  padding: 0.6rem;
+}
+
+.Drug h3 {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+
+/* Spinner ===================*/
+
+.sk-folding-cube {
+  margin: 20px auto;
+  margin-top: 40vh;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  -webkit-transform: rotateZ(45deg);
+          transform: rotateZ(45deg);
+}
+
+.sk-folding-cube .sk-cube {
+  float: left;
+  width: 50%;
+  height: 50%;
+  position: relative;
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1); 
+}
+.sk-folding-cube .sk-cube:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(155, 219, 245);
+  -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+          animation: sk-foldCubeAngle 2.4s infinite linear both;
+  -webkit-transform-origin: 100% 100%;
+      -ms-transform-origin: 100% 100%;
+          transform-origin: 100% 100%;
+}
+.sk-folding-cube .sk-cube2 {
+  -webkit-transform: scale(1.1) rotateZ(90deg);
+          transform: scale(1.1) rotateZ(90deg);
+}
+.sk-folding-cube .sk-cube3 {
+  -webkit-transform: scale(1.1) rotateZ(180deg);
+          transform: scale(1.1) rotateZ(180deg);
+}
+.sk-folding-cube .sk-cube4 {
+  -webkit-transform: scale(1.1) rotateZ(270deg);
+          transform: scale(1.1) rotateZ(270deg);
+}
+.sk-folding-cube .sk-cube2:before {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+.sk-folding-cube .sk-cube3:before {
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s; 
+}
+.sk-folding-cube .sk-cube4:before {
+  -webkit-animation-delay: 0.9s;
+          animation-delay: 0.9s;
+}
+@-webkit-keyframes sk-foldCubeAngle {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+            transform: perspective(140px) rotateX(-180deg);
+    opacity: 0; 
+  } 25%, 75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+            transform: perspective(140px) rotateX(0deg);
+    opacity: 1; 
+  } 90%, 100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+            transform: perspective(140px) rotateY(180deg);
+    opacity: 0; 
+  } 
+}
+
+@keyframes sk-foldCubeAngle {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+            transform: perspective(140px) rotateX(-180deg);
+    opacity: 0; 
+  } 25%, 75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+            transform: perspective(140px) rotateX(0deg);
+    opacity: 1; 
+  } 90%, 100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+            transform: perspective(140px) rotateY(180deg);
+    opacity: 0; 
+  }
 }
