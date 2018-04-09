@@ -73,7 +73,6 @@ class InputComponent extends Component {
     }
 
     render() {
-        console.log((this.state.role === 'doctor'))
       return (
         <div className='inputComponent'>
            <h2>Enter Role and ID</h2>

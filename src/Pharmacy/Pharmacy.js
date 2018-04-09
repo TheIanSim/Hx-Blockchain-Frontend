@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PersonalDetails from './PersonalDetailsPharm';
 import Navigation from '../Common/Navigation';
 import Prescriptions from './Prescriptions';
+//import Permissions from './Permissions';
 
 class Pharmacy extends Component {
 
@@ -28,6 +29,7 @@ class Pharmacy extends Component {
 
     
     routes = [
+        //['permissions', <Permissions pd={this.state.pd} modal={this.props.modal} spinner={this.props.spinner}/>],
         ['prescriptions', <Prescriptions  prescriptions={this.state.prescriptions} modal={this.props.modal}/>],
         ]
     
